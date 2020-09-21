@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import * as THREE from "three";
-import { Canvas, useLoader } from "react-three-fiber";
+import { Canvas, useLoader, Dom } from "react-three-fiber";
 import { Block, useBlock } from "./blocks";
 import state from "./store";
 import img1 from "./assets/imgjapan.jpg";
@@ -11,7 +11,7 @@ function Plane({ color = "white", ...props }) {
   return (
     <mesh {...props}>
       <planeBufferGeometry attach="geometry" />
-      <meshBasicMaterial attach="material" map={texture} />
+      <meshBasicMaterial attach="material" color={color} />
     </mesh>
   );
 }
@@ -35,12 +35,20 @@ export default function App() {
   return (
     <>
       <Canvas orthographic camera={{ zoom: state.zoom, position: [0, 0, 500] }}>
-        <Suspense fallback={null}>
+        <Suspense fallback={<Loading />}>
           <Block factor={1.5} offset={0}>
             <Content left />
           </Block>
         </Suspense>
       </Canvas>
     </>
+  );
+}
+
+function Loading() {
+  return (
+    <Dom>
+      <h1>Loading...</h1>
+    </Dom>
   );
 }
