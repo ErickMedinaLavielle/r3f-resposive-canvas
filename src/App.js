@@ -3,15 +3,16 @@ import * as THREE from "three";
 import { Canvas, useLoader, Dom } from "react-three-fiber";
 import { Block, useBlock } from "./blocks";
 import state from "./store";
-import img1 from "./assets/imgjapan.jpg";
+import img1 from "./assets/img.jpg";
 import "./styles.css";
 
 function Plane({ color = "white", ...props }) {
   const [texture] = useLoader(THREE.TextureLoader, [img1]);
+  console.log(texture);
   return (
     <mesh {...props}>
       <planeBufferGeometry attach="geometry" />
-      <meshBasicMaterial attach="material" color={color} />
+      <meshBasicMaterial attach="material" map={texture} />
     </mesh>
   );
 }
@@ -47,7 +48,7 @@ export default function App() {
 
 function Loading() {
   return (
-    <Dom>
+    <Dom center className="loading">
       <h1>Loading...</h1>
     </Dom>
   );
