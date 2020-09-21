@@ -17,12 +17,11 @@ function Plane({ color = "white", ...props }) {
   );
 }
 
-function Content({ left, children }) {
-  const { contentMaxWidth, canvasWidth, margin } = useBlock();
+function Content({ children }) {
+  const { contentMaxWidth } = useBlock();
   const aspect = 1.75;
-  const alignRight = (canvasWidth - contentMaxWidth - margin) / 2;
   return (
-    <group position={[alignRight * (left ? -1 : 1), 0, 0]}>
+    <group position={[0, 0, 0]}>
       <Plane
         scale={[contentMaxWidth, contentMaxWidth / aspect, 1]}
         color="#bfe2ca"
@@ -38,7 +37,7 @@ export default function App() {
       <Canvas orthographic camera={{ zoom: state.zoom, position: [0, 0, 500] }}>
         <Suspense fallback={<Loading />}>
           <Block factor={1.5} offset={0}>
-            <Content left />
+            <Content />
           </Block>
         </Suspense>
       </Canvas>
